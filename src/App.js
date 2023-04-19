@@ -6,7 +6,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/books')
+    fetch('https://mi-linux.wlv.ac.uk/~2236664/laravel-booklibrary/public/api/books')
       .then(response => response.json())
       .then(data => setBookData(data))
       .catch(error => setError(error));
