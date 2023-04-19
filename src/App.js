@@ -5,18 +5,6 @@ import BookEdit from "./components/BookEdit";
 import BookDetail from "./components/BookDetail";
 
 function App() {
-
-  const [bookData, setBookData] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch('http://localhost:8000/api/books')
-      .then(response => response.json())
-      .then(data => setBookData(data))
-      .catch(error => setError(error));
-  }, []);
-
-
   return (
     <BrowserRouter>
       <Routes>
