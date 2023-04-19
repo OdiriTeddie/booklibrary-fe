@@ -34,7 +34,7 @@ const BookDetail = () => {
         </div>
       )}
 
-      <Link to="/">Back to listing</Link>
+      <Link to="/">Back to listin</Link>
     </div>
   );
 };
