@@ -22,9 +22,9 @@ function Home() {
       const createBook = async () => {
         try {
           const response = await fetch(
-            "http://localhost:8000/api/books/" + id,
+            `https://mi-linux.wlv.ac.uk/~2236664/crud-book-api/public/api/books/${id}?_method=delete`,
             {
-              method: "DELETE",
+              method: "POST",
             }
           );
           alert("Removed succesfully");
@@ -40,7 +40,9 @@ function Home() {
 
   const fetchBooks = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/books");
+      const response = await fetch(
+        "https://mi-linux.wlv.ac.uk/~2236664/crud-book-api/public/api/books"
+      );
       const books = await response.json();
       setBookData(books);
     } catch (error) {

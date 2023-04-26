@@ -7,6 +7,7 @@ const BookCreate = () => {
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -16,11 +17,14 @@ const BookCreate = () => {
 
     const createBook = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/books", {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify(bookData),
-        });
+        const response = await fetch(
+          "https://mi-linux.wlv.ac.uk/~2236664/crud-book-api/public/api/books",
+          {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(bookData),
+          }
+        );
         alert("Saved succesfully");
         navigate("/");
       } catch (error) {

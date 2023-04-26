@@ -6,7 +6,9 @@ const BookEdit = () => {
 
   const fetchBook = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/api/books/${bookid}`);
+      const response = await fetch(
+        `https://mi-linux.wlv.ac.uk/~2236664/crud-book-api/public/api/books/${bookid}`
+      );
       const singleBook = await response.json();
       //   setBookSingle(singleBook);
       setId(singleBook.data.id);
@@ -41,9 +43,9 @@ const BookEdit = () => {
     const createBook = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/books/" + bookid,
+          `https://mi-linux.wlv.ac.uk/~2236664/crud-book-api/public/api/books/${bookid}?_method=patch`,
           {
-            method: "PUT",
+            method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(bookData),
           }
