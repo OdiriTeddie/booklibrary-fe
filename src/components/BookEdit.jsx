@@ -10,7 +10,7 @@ const BookEdit = () => {
         `https://mi-linux.wlv.ac.uk/~2236664/crud-book-api/public/api/books/${bookid}`
       );
       const singleBook = await response.json();
-      //   setBookSingle(singleBook);
+
       setId(singleBook.data.id);
       setTitle(singleBook.data.title);
       setAuthor(singleBook.data.author);

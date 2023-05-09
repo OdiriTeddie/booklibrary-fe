@@ -1,88 +1,86 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import React from "react";
+import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter, Route, Routes } from "react-router-dom";
 import BookDetail from "../components/BookDetail";
 
-const bookDetailProps = {
-  title: "Deep Focus",
-  author: "Carl Newport",
-  category: "Self Development",
-  description:
-    "Deep work is the ability to focus without distraction on a cognitively demanding task. It's a skill that allows you to quickly master complicated information and produce better results in less time.",
-};
-
-describe("Book Detail", () => {
-  test("should show title of single book", () => {
-    render(
-      <BrowserRouter>
-        <BookDetail />
-      </BrowserRouter>
-    );
-    const title = screen.getByRole("heading", {
-      title: "Deep Focus",
+describe("BookDetail component", () => {
+  beforeEach(() => {
+    jest.spyOn(global, "fetch").mockResolvedValueOnce({
+      json: async () => ({
+        data: {
+          title: "The Great Gatsby",
+          author: "F. Scott Fitzgerald",
+          category: "Fiction",
+          description: "A tale of love, greed, and betrayal.",
+        },
+      }),
     });
-    expect(title).toBeInTheDocument();
   });
 
-  test("should show author of single book", () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  it("renders book details", async () => {
     render(
-      <BrowserRouter>
-        <BookDetail />
-      </BrowserRouter>
+      <MemoryRouter initialEntries={[`/books/1`]}>
+        <Routes>
+          <Route path="/books/:bookid" Component={BookDetail} />
+        </Routes>
+      </MemoryRouter>
     );
-    const author = screen.getByRole("heading", {
-      author: "Carl Newport",
-    });
-    expect(author).toBeInTheDocument();
+
+    await screen.findByText("The Great Gatsby");
+    expect(screen.getByText("F. Scott Fitzgerald")).toBeInTheDocument();
+    expect(screen.getByText("Fiction")).toBeInTheDocument();
+    expect(
+      screen.getByText("A tale of love, greed, and betrayal.")
+    ).toBeInTheDocument();
   });
 
-  test("should show category of single book", () => {
+  it("renders a link back to the book list", async () => {
     render(
-      <BrowserRouter>
-        <BookDetail />
-      </BrowserRouter>
+      <MemoryRouter initialEntries={[`/books/1`]}>
+        <Routes>
+          <Route path="/books/:bookid" Component={BookDetail} />
+        </Routes>
+      </MemoryRouter>
     );
-    const category = screen.getByRole("heading", {
-      category: "self development/",
-    });
-    expect(category).toBeInTheDocument();
+
+    const linkElement = screen.getByRole("link", { name: /back to listing/i });
+    expect(linkElement).toBeInTheDocument();
+    expect(linkElement).toHaveAttribute("href", "/");
   });
 
-  test("should show description of single book", () => {
+  it("fetches book data from API", async () => {
     render(
-      <BrowserRouter>
-        <BookDetail {...bookDetailProps} />
-      </BrowserRouter>
+      <MemoryRouter initialEntries={[`/books/1`]}>
+        <Routes>
+          <Route path="/books/:bookid" Component={BookDetail} />
+        </Routes>
+      </MemoryRouter>
     );
-    const description = screen.getByText("heading", {
-      description:
-        /Deep work is the ability to focus without distraction on a cognitively demanding task./i,
-    });
 
-    expect(description).toBeInTheDocument();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith(
+      "https://mi-linux.wlv.ac.uk/~2236664/crud-book-api/public/api/books/1"
+    );
   });
-});
 
-test("page contains the add new button", () => {
-  render(
-    <BrowserRouter>
-      <BookDetail />
-    </BrowserRouter>
-  );
-  const backToListing = screen.getByRole("link", {
-    name: "Back to listing",
-  });
-  expect(backToListing).toBeInTheDocument();
-});
+  it("handles API error gracefully", async () => {
+    jest.spyOn(console, "log").mockImplementationOnce(() => {});
 
-test("page contains the back to listing button", () => {
-  render(
-    <BrowserRouter>
-      <BookDetail />
-    </BrowserRouter>
-  );
-  const backToListing = screen.getByRole("link", {
-    name: "Back to listing",
+    jest.spyOn(global, "fetch").mockRejectedValueOnce(new Error("API error"));
+
+    render(
+      <MemoryRouter initialEntries={[`/books/1`]}>
+        <Routes>
+          <Route path="/books/:bookid" Component={BookDetail} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText("The Great Gatsby")).not.toBeInTheDocument();
   });
-  fireEvent.click(backToListing);
-  expect(window.location.pathname).toBe("/");
 });

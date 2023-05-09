@@ -1,56 +1,60 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import Books from "../components/Books";
-import { BrowserRouter } from "react-router-dom";
 
-test("page contains the add new button", () => {
-  render(
-    <BrowserRouter>
-      <Books />
-    </BrowserRouter>
-  );
-  const addNewBtn = screen.getByRole("link", {
-    name: "Add New",
+describe("Books component", () => {
+  const bookData = {
+    data: [
+      {
+        id: 1,
+        title: "The Great Gatsby",
+        author: "F. Scott Fitzgerald",
+        category: "Fiction",
+        description: "A tale of love, greed, and betrayal.",
+      },
+      {
+        id: 2,
+        title: "To Kill a Mockingbird",
+        author: "Harper Lee",
+        category: "Fiction",
+        description: "A story of racial injustice and the loss of innocence.",
+      },
+    ],
+  };
+
+  it("renders book data and Add New link", () => {
+    const LoadBookDetail = jest.fn();
+    const RemoveBook = jest.fn();
+    const EditBook = jest.fn();
+
+    render(
+      <MemoryRouter>
+        <Books
+          bookData={bookData}
+          LoadBookDetail={LoadBookDetail}
+          RemoveBook={RemoveBook}
+          EditBook={EditBook}
+        />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText("Add New")).toBeInTheDocument();
+
+    expect(screen.getByText("The Great Gatsby")).toBeInTheDocument();
+    expect(screen.getByText("F. Scott Fitzgerald")).toBeInTheDocument();
+    expect(
+      screen.getByText("A tale of love, greed, and betrayal.")
+    ).toBeInTheDocument();
+
+    expect(screen.getByText("To Kill a Mockingbird")).toBeInTheDocument();
+    expect(screen.getByText("Harper Lee")).toBeInTheDocument();
+    expect(
+      screen.getByText("A story of racial injustice and the loss of innocence.")
+    ).toBeInTheDocument();
+
+    expect(LoadBookDetail).not.toHaveBeenCalled();
+    expect(RemoveBook).not.toHaveBeenCalled();
+    expect(EditBook).not.toHaveBeenCalled();
   });
-  expect(addNewBtn).toBeInTheDocument();
 });
-
-test("page contains the add new button", () => {
-  render(
-    <BrowserRouter>
-      <Books />
-    </BrowserRouter>
-  );
-  const addNewBtn = screen.getByRole("link", {
-    name: "Add New",
-  });
-  fireEvent.click(addNewBtn);
-  expect(window.location.pathname).toBe("/book/create");
-});
-
-// import React from "react";
-// import { render, fireEvent } from "@testing-library/react";
-// import { MemoryRouter } from "react-router-dom";
-// import { editItem } from "./api";
-// import ItemList from "./ItemList";
-
-// jest.mock("./api");
-
-// const itemList = [
-//   { id: 1, name: "Item 1", description: "Description of item 1" },
-//   { id: 2, name: "Item 2", description: "Description of item 2" },
-//   { id: 3, name: "Item 3", description: "Description of item 3" },
-// ];
-
-// test("clicking the edit button navigates to the edit item page", () => {
-//   const { getByRole } = render(
-//     <MemoryRouter initialEntries={["/"]}>
-//       <ItemList itemList={itemList} />
-//     </MemoryRouter>
-//   );
-
-//   const editButton = getByRole("button", { name: "Edit Item 1" });
-//   fireEvent.click(editButton);
-
-//   expect(editItem).toHaveBeenCalledWith(1);
-//   expect(window.location.pathname).toBe("/edit-item/1");
-// });
