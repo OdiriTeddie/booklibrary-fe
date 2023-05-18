@@ -1,0 +1,128 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
+
+body {
+  height: 100vh;
+  padding-block: 4rem;
+  font-size: 1rem;
+  padding-block: 4rem;
+  line-height: 1.5;
+  overflow: auto;
+  font-family: "Roboto", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+.main {
+  max-width: 80rem;
+  width: 90%;
+  margin-inline: auto;
+}
+
+section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.3rem;
+  padding-block: 2rem;
+  padding-inline: 1.5rem;
+  border-radius: 8px;
+  max-width: 20rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  ul li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  &--title {
+    font-size: 1.3rem;
+  }
+
+  &--author {
+    font-size: 0.85rem;
+  }
+
+  &--category {
+    background: #bfffc0;
+    align-self: center;
+    padding: 0.3rem 1rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+  }
+
+  &--description {
+    font-size: 0.9rem;
+  }
+}
+
+.book-icon {
+  font-size: 3rem;
+}
+
+.btn-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  background: #dcdcdc;
+  cursor: pointer;
+
+  &--delete {
+    background-color: rgb(255, 7, 7);
+    color: #fff;
+  }
+
+  &--link {
+    font-size: 1rem;
+    background-color: #1a186e;
+    color: #fafafa;
+  }
+}
+
+@media (min-width: 756px) {
+  .book-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -55,7 +55,7 @@ function Home() {
   }, []);
 
   return (
-    <main>
+    <main className="main">
       <Books
         bookData={bookData}
         LoadBookDetail={LoadBookDetail}

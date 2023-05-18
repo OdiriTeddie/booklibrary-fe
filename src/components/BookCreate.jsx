@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaBookOpen } from "react-icons/fa";
+import "./createform.scss";
 
 const BookCreate = () => {
   const [id, setId] = useState("");
@@ -35,9 +37,11 @@ const BookCreate = () => {
   };
 
   return (
-    <div>
-      <h1>Create New Book</h1>
-      <form onSubmit={handleSubmit}>
+    <section className="create-form">
+      <h1 className="create-title">
+        Create New Book <FaBookOpen />{" "}
+      </h1>
+      <form className="form" onSubmit={handleSubmit} data-testid="form">
         <div className="formgroup">
           <label htmlFor="id">ID</label>
           <input
@@ -94,12 +98,16 @@ const BookCreate = () => {
           ></textarea>
         </div>
 
-        <div className="formgroup">
-          <button type="submit">Save</button>
-          <Link to="/">Back</Link>
+        <div className="formgroup form-btn">
+          <button className="btn" type="submit">
+            Save
+          </button>
+          <Link className="btn btn--link" to="/">
+            Back
+          </Link>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 

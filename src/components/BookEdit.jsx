@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { FaBookOpen } from "react-icons/fa";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 const BookEdit = () => {
@@ -60,73 +61,77 @@ const BookEdit = () => {
   };
 
   return (
-    <div>
-      <div>
-        <h1>Update Book</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="formgroup">
-            <label htmlFor="id">ID</label>
-            <input
-              type="text"
-              id="id"
-              disabled="disabled"
-              placeholder="ID"
-              value={id}
-              onChange={(e) => setId(e.target.value)}
-            />
-          </div>
+    <section className="create-form">
+      <h1 className="create-title">
+        Update Book <FaBookOpen />
+      </h1>
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="formgroup">
+          <label htmlFor="id">ID</label>
+          <input
+            type="text"
+            id="id"
+            disabled="disabled"
+            placeholder="ID"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
+        </div>
 
-          <div className="formgroup">
-            <label htmlFor="title">Title</label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              placeholder="Book Title"
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
+        <div className="formgroup">
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            placeholder="Book Title"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
 
-          <div className="formgroup">
-            <label htmlFor="author">Author</label>
-            <input
-              type="text"
-              id="author"
-              value={author}
-              placeholder="Book Author"
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-          </div>
+        <div className="formgroup">
+          <label htmlFor="author">Author</label>
+          <input
+            type="text"
+            id="author"
+            value={author}
+            placeholder="Book Author"
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+        </div>
 
-          <div className="formgroup">
-            <label htmlFor="category">Category</label>
-            <input
-              type="text"
-              id="category"
-              value={category}
-              placeholder="Book Category"
-              onChange={(e) => setCategory(e.target.value)}
-            />
-          </div>
+        <div className="formgroup">
+          <label htmlFor="category">Category</label>
+          <input
+            type="text"
+            id="category"
+            value={category}
+            placeholder="Book Category"
+            onChange={(e) => setCategory(e.target.value)}
+          />
+        </div>
 
-          <div className="formgroup">
-            <label htmlFor="description">Description</label>
-            <textarea
-              type="text"
-              id="description"
-              value={description}
-              placeholder="Book Description"
-              onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
-          </div>
+        <div className="formgroup">
+          <label htmlFor="description">Description</label>
+          <textarea
+            type="text"
+            id="description"
+            value={description}
+            placeholder="Book Description"
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+        </div>
 
-          <div className="formgroup">
-            <button type="submit">Save</button>
-            <Link to="/">Back</Link>
-          </div>
-        </form>
-      </div>
-    </div>
+        <div className="formgroup form-btn">
+          <button className="btn" type="submit">
+            Save
+          </button>
+          <Link className="btn btn--link" to="/">
+            Back
+          </Link>
+        </div>
+      </form>
+    </section>
   );
 };
 

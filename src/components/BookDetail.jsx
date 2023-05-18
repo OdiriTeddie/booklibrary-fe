@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { FaBookOpen } from "react-icons/fa";
+import "./bookdetail.scss";
 
 const BookDetail = () => {
   const { bookid } = useParams();
@@ -23,20 +25,25 @@ const BookDetail = () => {
   }, []);
 
   return (
-    <div>
+    <section className="section details-section">
       <h1>Book Details</h1>
 
       {bookSingle.data && (
-        <div>
+        <div className="book-details">
+          <div className="book-icon">
+            <FaBookOpen />
+          </div>
           <h2>{bookSingle.data.title}</h2>
-          <h4>{bookSingle.data.author}</h4>
-          <h4>{bookSingle.data.category}</h4>
-          <h4>{bookSingle.data.description}</h4>
+          <p>{bookSingle.data.author}</p>
+          <p className="book--category">{bookSingle.data.category}</p>
+          <p className="detail-description">{bookSingle.data.description}</p>
         </div>
       )}
 
-      <Link to="/">Back to listing</Link>
-    </div>
+      <Link className="btn btn--link" to="/">
+        Back to listing
+      </Link>
+    </section>
   );
 };
 

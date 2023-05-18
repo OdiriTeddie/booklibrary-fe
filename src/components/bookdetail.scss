@@ -1,0 +1,22 @@
+.details-section {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.book-details {
+  max-width: 40rem;
+  width: 90%;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 3rem;
+  color: #1a186e;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-description {
+  font-size: 1.2rem;
+}
